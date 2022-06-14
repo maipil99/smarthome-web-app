@@ -1,0 +1,49 @@
+<script></script>
+<div id="modal-content-wrapper" >
+    <header id="modal-header" >
+        <h1 id="modal-title">{{title}}</h1>
+        <hr>
+    </header>
+    <div>
+        <label>Status: </label>
+        <mat-button-toggle-group class="Toggle">
+            <mat-button-toggle value="ON" class="Toggle-button" (change)="setState($event.value)">ON </mat-button-toggle>
+            <mat-button-toggle value="OFF" class="Toggle-button" (change)="setState($event.value)">OFF</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+<div>
+    <label>Brightness: </label>
+    <mat-slider
+    thumbLabel [displayWith]="formatLabel"
+    class="Slider" min="1" max="254"
+     step="1" value="{{brightness}}" aria-label="units"
+     (change)="setBrightness($event)">
+    </mat-slider>
+
+</div>
+<div>
+    <label>Color Temp: </label>
+    <mat-slider
+    thumbLabel [displayWith]="formatLabel"
+    class="Slider" min="1" max="500" step="1"
+    value="1" aria-label="units"
+    (change)="setColorTemp($event)">
+    </mat-slider>
+</div>
+
+<div>
+    <label>Effect: </label>
+    <button mat-button [matMenuTriggerFor]="menu" id="menuButton">Choose Effect</button>
+    <mat-menu #menu="matMenu">
+        <button (click)="setEffect(option)" *ngFor="let option of options" mat-menu-item>
+            {{option}}
+        </button>
+      </mat-menu>
+</div>
+
+
+
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-close-button" (click)="closeModal()">Close</button>
+    </footer>
+</div>

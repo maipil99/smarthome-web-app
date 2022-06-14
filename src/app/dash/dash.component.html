@@ -1,0 +1,25 @@
+<body>
+
+<table>
+  <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>State</th>
+
+  </tr>
+  <tr *ngFor="let device of deviceList; let i = index">
+    <td> {{device.id}}  </td>
+    <td> {{device.name}} </td>
+    <td>
+      <mat-button-toggle-group class="Toggle">
+      <mat-button-toggle value="ON" class="Toggle-button" (change)="setState($event.value, i)" >ON </mat-button-toggle>
+      <mat-button-toggle value="OFF "class="Toggle-button" (change)="setState($event.value, i)" >OFF</mat-button-toggle>
+    </mat-button-toggle-group>
+       </td>
+<div>
+
+    <button mat-fab color="accent"  class="Edit"  (click)="openModal(i)">Control</button>
+</div>
+
+</table>
+</body>
