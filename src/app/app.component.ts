@@ -1,32 +1,40 @@
 import {Component, OnInit} from '@angular/core';
-import {MqttClient} from 'mqtt';
-import {Device} from 'src/Models/device';
-import {Service} from 'src/Models/Service';
-import {isNumber} from "util";
+import { DeviceService } from 'src/Services/Device-service';
+import { LinkqualityService } from 'src/Services/Linkquality-service';
+import {MqttService} from 'src/Services/Mqtt-service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'Smarthome Dashboard';
-  devices: any[];
-    public linkquality: number;
+  //devices: any[];
 
-  constructor(private service: Service) {
-  }
+  public linkquality = this.linkqualityService.linkquality;
+  public linkqualityData = this.linkqualityService.linkqualityData;
+
+  constructor(
+    //private deviceService: DeviceService, 
+    private linkqualityService : LinkqualityService, 
+    private mqttService: MqttService
+  ) {}
+
 
   ngOnInit(): void {
-    this.devices = this.service.getAll();
-    this.service.Mqtt.subscribe("zigbee2mqtt/Lamp1")
-    this.service.Mqtt.on('message', (topic, payload) => {
-      console.log(payload.toString())
+    //this.devices = this.deviceService.getAll();
+    
+    this.mqttService.Mqtt.subscribe("zigbee2mqtt/Lamp1");
 
-      let messageObj = JSON.parse(payload.toString())
+    this.mqttService.Mqtt.on('message', (topic, payload) => {
+    let messageObj = JSON.parse(payload.toString())
+     
       this.linkquality= messageObj.linkquality;
+      this.linkqualityData.push([this.linkquality])
+      
       console.log(this.linkquality)
-
     });
 
   }

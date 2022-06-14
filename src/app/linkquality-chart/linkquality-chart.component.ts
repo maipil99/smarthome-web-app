@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import {ChartDataset, ChartType, ChartOptions} from "chart.js";
-import {Color} from "chart.js";
-import {MatLabel} from "@angular/material/form-field";
+import { Component, Inject } from '@angular/core';
+import { LinkqualityService } from 'src/Services/Linkquality-service';
+import { ChartOptions, ChartType, ChartDataSets,} from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 
 @Component({
@@ -10,19 +10,24 @@ import {MatLabel} from "@angular/material/form-field";
   styleUrls: ['./linkquality-chart.component.css']
 })
 export class LinkqualityChartComponent {
-  public lineChartData: { data: number[]; label: string }[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  ];
-  public lineChartLabels: MatLabel[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions: ChartOptions = {
+
+  public lineChartData : ChartDataSets[] = [ { data: this.linkqualityservice.linkqualityData } ];
+  public lineChartLabels: Label[] = ["Link Quality"];
+  public lineChartOptions: ChartOptions  = {
     responsive: true,
   };
   public lineChartColors: Color[] = [
-
+    {
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'black'
+    },
   ];
+  
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
 
-  constructor() { }
+  constructor(private linkqualityservice: LinkqualityService) {
+    console.log(this.linkqualityservice.linkqualityData);
+  }
 }

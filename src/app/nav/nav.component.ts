@@ -18,5 +18,5 @@ export class NavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
-  menuItems = ['dashboard', 'linkQuality'];
+  menuItems = ['dashboard', 'link-quality'];
 }

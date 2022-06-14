@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {Service} from 'src/Models/Service';
+import { MqttService } from 'src/Services/Mqtt-service';
 import {MatSliderChange} from '@angular/material/slider';
 import {DashComponent} from "../dash/dash.component";
-import {Lamp} from "../../Models/Lamp";
 
 @Component({
   selector: 'app-device-modal',
   templateUrl: './device-modal.component.html',
   styleUrls: ['./device-modal.component.css']
 })
+
 export class DeviceModalComponent implements OnInit {
   deviceId = sessionStorage.getItem('index');
 
@@ -21,7 +21,7 @@ export class DeviceModalComponent implements OnInit {
   color_temp = this.device.color_temp;
   effect = this.device.effect;
 
-  constructor(public dialogRef: MatDialogRef<DeviceModalComponent>, private service: Service, private dash: DashComponent) {
+  constructor(public dialogRef: MatDialogRef<DeviceModalComponent>, private mqttService: MqttService, private dash: DashComponent) {
   }
 
   formatLabel(value: number) {
@@ -40,26 +40,26 @@ export class DeviceModalComponent implements OnInit {
 
   setState(value) {
     if (value == "ON"){
-      this.service.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "ON");
+      this.mqttService.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "ON");
       this.device.state = "ON";
     }
     else{
-      this.service.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "OFF")
+      this.mqttService.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "OFF")
       this.device.state = "OFF";
     }
   }
 
   setBrightness(event: MatSliderChange) {
-    this.service.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/brightness", event.value.toString())
+    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/brightness", event.value.toString())
     this.device.brightness = event.value;
   }
 
   setColorTemp(event: MatSliderChange) {
-    this.service.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/color_temp", event.value.toString())
+    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/color_temp", event.value.toString())
     this.device.color_temp = event.value;
   }
 
   setEffect(option) {
-      this.service.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/effect", option)
+      this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/effect", option)
   }
 }

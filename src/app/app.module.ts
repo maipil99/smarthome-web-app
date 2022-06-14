@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {NgChartsModule} from "ng2-charts";
+import {ChartsModule} from "ng2-charts";
+import { RouterModule } from '@angular/router';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -28,6 +29,7 @@ import {DashComponent} from './dash/dash.component';
 import {DeviceModalComponent} from './device-modal/device-modal.component';
 
 import { LinkqualityChartComponent } from './linkquality-chart/linkquality-chart.component';
+import { LinkqualityService } from 'src/Services/Linkquality-service';
 
 
 @NgModule({
@@ -52,17 +54,18 @@ import { LinkqualityChartComponent } from './linkquality-chart/linkquality-chart
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    NgChartsModule,
+    ChartsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
     MatButtonToggleModule,
     MatSliderModule,
-    NgChartsModule
+    ChartsModule,
+    RouterModule
 
   ],
-  providers: [],
+  providers: [LinkqualityService],
   bootstrap: [AppComponent],
   entryComponents: [DeviceModalComponent]
 })
