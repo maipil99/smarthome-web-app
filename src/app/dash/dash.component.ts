@@ -25,7 +25,8 @@ export class DashComponent implements AfterViewInit {
   constructor(public matDialog: MatDialog, private mqttClient: MqttService) { }
 
   ngAfterViewInit(): void {
-    //closes pop-up when you click anywhere else
+
+    //close pop-up when you click anywhere else
    document.onclick = (args: any) : void => {
           if(args.target.tagName === 'BODY') {
               this.modalDialog?.close()
@@ -41,10 +42,16 @@ export class DashComponent implements AfterViewInit {
     this.modalDialog = this.matDialog.open(DeviceModalComponent, this.dialogConfig);
   }
 
+  //get the index of the current object to be controlled in the pop-up
   getDevice(i){
     sessionStorage.setItem('index', i)
   }
 
+  /**
+   * sets the state of a lamp
+   * @param value 
+   * @param i 
+   */
   setState(value, i) {
     if (value == "ON"){
       this.mqttClient.Mqtt.publish("zigbee2mqtt/"+ this.deviceList[i].name + "/set/state", "ON");

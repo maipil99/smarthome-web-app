@@ -13,21 +13,26 @@ export class AppComponent implements OnInit {
   title = 'Smarthome Dashboard';
   //devices: any[];
 
+  /*
   public linkquality = this.linkqualityService.linkquality;
   public linkqualityData = this.linkqualityService.linkqualityData;
-
+*/
   constructor(
     //private deviceService: DeviceService, 
-    private linkqualityService : LinkqualityService, 
+   // private linkqualityService : LinkqualityService, 
+   //injected mqttService
     private mqttService: MqttService
   ) {}
 
-
+/**
+ * subscribe to mqtt topics on app init
+ */
   ngOnInit(): void {
-    //this.devices = this.deviceService.getAll();
     
     this.mqttService.Mqtt.subscribe("zigbee2mqtt/Lamp1");
-
+    
+    //this.devices = this.deviceService.getAll();
+    /*
     this.mqttService.Mqtt.on('message', (topic, payload) => {
     let messageObj = JSON.parse(payload.toString())
      
@@ -36,6 +41,7 @@ export class AppComponent implements OnInit {
       
       console.log(this.linkquality)
     });
+    */
 
   }
 }
