@@ -14,7 +14,7 @@ export class LinkqualityChartComponent implements OnInit {
   public linkquality = this.linkqualityservice.linkquality;
   public linkqualityData = this.linkqualityservice.linkqualityData;
 
-  public lineChartData : ChartDataSets[] = [ { data: this.linkqualityservice.linkqualityData } ];
+  public lineChartData : ChartDataSets[] = [ { data: this.linkqualityData } ];
   public lineChartLabels: Label[] = ["Link Quality"];
   public lineChartOptions: ChartOptions  = {
     responsive: true,
@@ -31,7 +31,7 @@ export class LinkqualityChartComponent implements OnInit {
   public lineChartPlugins = [];
 
   constructor(private linkqualityservice: LinkqualityService, private mqttService: MqttService) {
-    console.log(this.linkqualityservice.linkqualityData);
+    console.log(this.linkqualityData);
 
   }
 
