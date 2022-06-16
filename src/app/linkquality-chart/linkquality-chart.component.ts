@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LinkqualityService } from 'src/Services/Linkquality-service';
-import { ChartOptions, ChartType, ChartDataSets,} from 'chart.js';
+import { ChartOptions, ChartType, ChartDataSets, } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { MqttService } from 'src/Services/Mqtt-service';
 
@@ -14,9 +14,9 @@ export class LinkqualityChartComponent implements OnInit {
   public linkquality = this.linkqualityservice.linkquality;
   public linkqualityData = this.linkqualityservice.linkqualityData;
 
-  public lineChartData : ChartDataSets[] = [ { data: this.linkqualityData } ];
+  public lineChartData: ChartDataSets[] = [{ data: this.linkqualityData }];
   public lineChartLabels: Label[] = ["Link Quality"];
-  public lineChartOptions: ChartOptions  = {
+  public lineChartOptions: ChartOptions = {
     responsive: true,
   };
   public lineChartColors: Color[] = [
@@ -25,7 +25,7 @@ export class LinkqualityChartComponent implements OnInit {
       borderColor: 'black'
     },
   ];
-  
+
   public lineChartLegend = false;
   public lineChartType: ChartType = 'line';
   public lineChartPlugins = [];
@@ -41,11 +41,11 @@ export class LinkqualityChartComponent implements OnInit {
   ngOnInit(): void {
     this.mqttService.Mqtt.on('message', (topic, payload) => {
       let messageObj = JSON.parse(payload.toString())
-       
-        this.linkquality= messageObj.linkquality;
-        this.linkqualityData.push([this.linkquality])
-        
-        console.log(this.linkquality)
-      });
+
+      this.linkquality = messageObj.linkquality;
+      this.linkqualityData.push([this.linkquality])
+
+      console.log(this.linkquality)
+    });
   }
 }

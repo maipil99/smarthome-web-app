@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MqttService } from 'src/Services/Mqtt-service';
-import {MatSliderChange} from '@angular/material/slider';
-import {DashComponent} from "../dash/dash.component";
+import { MatSliderChange } from '@angular/material/slider';
+import { DashComponent } from "../dash/dash.component";
 
 @Component({
   selector: 'app-device-modal',
@@ -47,12 +47,12 @@ export class DeviceModalComponent implements OnInit {
    * @param value 
    */
   setState(value) {
-    if (value == "ON"){
-      this.mqttService.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "ON");
+    if (value == "ON") {
+      this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/state", "ON");
       this.device.state = "ON";
     }
-    else{
-      this.mqttService.Mqtt.publish("zigbee2mqtt/"+ this.device.name + "/set/state", "OFF")
+    else {
+      this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/state", "OFF")
       this.device.state = "OFF";
     }
   }
@@ -62,7 +62,7 @@ export class DeviceModalComponent implements OnInit {
    * @param event 
    */
   setBrightness(event: MatSliderChange) {
-    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/brightness", event.value.toString())
+    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/brightness", event.value.toString())
     this.device.brightness = event.value;
   }
 
@@ -71,7 +71,7 @@ export class DeviceModalComponent implements OnInit {
    * @param event 
    */
   setColorTemp(event: MatSliderChange) {
-    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name +"/set/color_temp", event.value.toString())
+    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/color_temp", event.value.toString())
     this.device.color_temp = event.value;
   }
 
@@ -80,6 +80,6 @@ export class DeviceModalComponent implements OnInit {
    * @param option 
    */
   setEffect(option) {
-      this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/effect", option)
+    this.mqttService.Mqtt.publish("zigbee2mqtt/" + this.device.name + "/set/effect", option)
   }
 }
